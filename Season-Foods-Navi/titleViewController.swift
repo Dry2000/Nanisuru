@@ -30,10 +30,10 @@ class titleViewController:UIViewController{
         super.viewDidLoad()
     //    logoimage = UIImageView()
         titleImageView.image = UIImage(named:"yasai.png")
-       goNext.titleLabel?.text = "タップしてスタート"
+       goNext.titleLabel?.text = "TapToStart"
         geo.image = UIImage(named:"geoapi.png")
         goNext.addTarget(self, action: #selector(self.tapped(_:)), for: .touchUpInside)
-        goNext.backgroundColor = .blue
+       // goNext.backgroundColor = .none
        // goNext.layer.position.x = (width / 4) * 3
        // goNext.frame = CGRect(x:5*self.view.frame.width/6,y:10*self.view.frame.height/6,width:self.view.frame.width/6,height:self.view.frame.height/10)
         
