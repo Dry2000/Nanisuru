@@ -428,12 +428,7 @@ extension ViewController{
         }
     }
        func searchCategoryRanking(){
-        /*if let myAPIKey = KeyManager().getValue(key: "apiKey") as? String { // "myAPIKey"は自分で設定したKeys.plistのキー
-            print(myAPIKey)
-        }*/
         let apiKey = Key();
-        //print(apiKey.key!)
-      //  let APPLICATION_ID = 1077779649169295378
      var today = "\(Date())"
      today = today.replacingOccurrences(of:"-", with:"")
      today = String(today.prefix(8))
