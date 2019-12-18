@@ -32,12 +32,12 @@ class FoodInfoViewController:UIViewController,UIScrollViewDelegate, WKNavigation
     var foodvalues:[String] = []
     var targetUrl = "食材"
     var keyname:[String] = []
-    override func loadView() {
+   /* override func loadView() {
         let webConfiguration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.uiDelegate = self
         view = webView
-    }
+    }*/
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -46,6 +46,8 @@ class FoodInfoViewController:UIViewController,UIScrollViewDelegate, WKNavigation
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupWebview()
+        print(targetUrl)
        /* eiyouTableView.delegate = self
         eiyouTableView.dataSource = self*/
        /* if food_info.prices.count != 0{
@@ -60,7 +62,41 @@ class FoodInfoViewController:UIViewController,UIScrollViewDelegate, WKNavigation
             foodImageView.sd_setImage(with: URL(string:"https://img.hachimenroppi.com/image.php?f=CZB5ApsB&adir=topic&id=100"), placeholderImage:UIImage(named:"loading.png"))
             //foodImageView.image = UIImage(named:"notfound.png")
         }*/
-        setchart()
+       /* let urlRequest = URLRequest(url:URL(string:targetUrl)!)
+        webView.load(urlRequest)
+        self.view.addSubview(webView)
+        setchart()*/
+    }
+    func setupWebview() {
+        // WKWebViewを作成と設定
+        webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
+        webView.allowsBackForwardNavigationGestures = true
+        webView.backgroundColor = .white
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
+        
+        // WKWebViewを追加してし制約を付与する
+        self.view.addSubview(webView)
+        // コードによるAutoLayoutの制約をWKWebViewへ付与する
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 11.0, *) {
+            webView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+            webView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor).isActive = true
+            webView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
+        } else {
+            webView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+            webView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+            webView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        }
+        webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        // 取得したいURLページをセットする
+        requestSamplePageUrl()
+    }
+    private func requestSamplePageUrl() {
+        if let url = URL(string: targetUrl) {
+            let urlRequest = URLRequest(url: url)
+            webView.load(urlRequest)
+        }
     }
     func setchart(){
        //if foodInfo == nil{return}
@@ -195,6 +231,53 @@ class FoodInfoViewController:UIViewController,UIScrollViewDelegate, WKNavigation
         return LineChartData(dataSets: linedata)
     }
 }
+extension ViewController:WKUIDelegate, WKNavigationDelegate{
+  /*  func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+            // 配置したWebViewに関する設定
+            webView.alpha = 0.46
+            webView.isUserInteractionEnabled = false
+            // プログレスバー表示に関する設定
+            SVProgressHUD.setBackgroundColor(UIColor(code: "#f3f3f3"))
+            SVProgressHUD.show(withStatus: "記事データ読み込み中...")
+        }
+        // WKWebViewで読み込みが完了した際に実行する処理
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            // 配置したWebViewに関する設定
+            webView.alpha = 1
+            webView.isUserInteractionEnabled = true
+            // プログレスバー表示に関する設定
+            SVProgressHUD.dismiss()
+        }*/
+        // WKWebViewで読み込みが失敗した際に実行する処理
+        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+            // 配置したWebViewに関する設定
+            webView.alpha = 1
+            webView.isUserInteractionEnabled = true
+         //   dropdownMenuView.isUserInteractionEnabled = true//
+            // プログレスバー表示に関する設定
+         //   SVProgressHUD.setBackgroundColor(UIColor(code: "#f3f3f3"))//
+          //  SVProgressHUD.showError(withStatus: "エラーが発生しました")
+        }
+        // WKWebView内における3Dタッチを設定に関する設定(trueにすると有効になる)
+        func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
+            return false
+        }
+        // MARK: - Private Function
+        private func openURL(_ url: URL) {
+            // MEMO: 下記のクラッシュ防止対策として導入する
+            // https://stackoverflow.com/questions/32864287/sfsafariviewcontroller-crash-the-specified-url-has-an-unsupported-scheme
+            if let urlScheme = url.scheme {
+                let isValidScheme = ["http", "https"].contains(urlScheme.lowercased())
+                if isValidScheme {
+          //          let safariVC = SFSafariViewController(url: url)
+                //    self.present(safariVC, animated: true, completion: nil)
+                } else {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+        }
+    }
+
    /* extension ViewController: WKNavigationDelegate {
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         }

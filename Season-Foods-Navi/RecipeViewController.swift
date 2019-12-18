@@ -99,14 +99,14 @@ class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataS
             cell.syun.isEnabled = false
             cell.checkbox.isEnabled = false
             cell.selectionStyle = .none
-        }else if indexPath.row == recipeInfo.recipeMaterial.count+1{
+        }/*else if indexPath.row == recipeInfo.recipeMaterial.count+1{
             cell.materialName?.text = "作り方"
             cell.syun.isHidden = true
             cell.checkbox.isHidden = true
             cell.syun.isEnabled = false
             cell.checkbox.isEnabled = false
             cell.selectionStyle = .none
-        }else if indexPath.row == recipeInfo.recipeMaterial.count+2{
+        }*/else if indexPath.row == recipeInfo.recipeMaterial.count+1{
             cell.materialName?.text = "ここをタップすると詳細なレシピのベージにジャンプします"
           //   cell.materialName?.text = recipeInfo.howto
             cell.syun.isHidden = true
@@ -121,14 +121,14 @@ class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == recipeInfo.recipeMaterial.count+2 {
+       // if indexPath.row == recipeInfo.recipeMaterial.count+2 {
             /*let targetUrl = recipeInfo.recipeUrl
             let urlRequest = URLRequest(url:URL(string:targetUrl)!)
             webView.load(urlRequest)
             self.view.addSubview(webView)*/
             tapped_row = indexPath.row-1
             performSegue(withIdentifier: "toFoodInfo", sender: nil)
-        }
+      //  }
         /*if indexPath.row > recipeInfo.recipeMaterial.count||indexPath.row == 0{
             return
         }
@@ -141,7 +141,11 @@ class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataS
             var next = 1
             let nextView = segue.destination as! FoodInfoViewController
            // nextView.foodName = recipeInfo.recipeMaterial[tapped_row]
+            if tapped_row == recipeInfo.recipeMaterial.count{
             nextView.targetUrl = recipeInfo.recipeUrl
+            }else{
+                nextView.targetUrl = "https://recipe.rakuten.co.jp/search/\(recipeInfo.recipeMaterial[tapped_row])/?s=4&v=0"
+            }
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -149,7 +153,7 @@ class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataS
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if recipeInfo.recipeMaterial == nil{ return 1}
-      return recipeInfo.recipeMaterial.count+3
+      return recipeInfo.recipeMaterial.count+2
     }
     @objc func checked(_ sender: UIButton) {
         check[sender.tag] = !check[sender.tag]
