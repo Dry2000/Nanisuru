@@ -13,8 +13,9 @@ import SwiftyJSON
 import SDWebImage
 import CoreLocation
 import Charts
+import WebKit
 let needs = [2650.0,60.0,20.0,250.0,3149.0,2500.0,650.0,340.0,0.0,7.0]
-class FoodInfoViewController:UIViewController,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource{
+class FoodInfoViewController:UIViewController,UIScrollViewDelegate, WKNavigationDelegate,WKUIDelegate{
  //   var scrollView:UIScrollView!
     var lineDataSet: LineChartDataSet!
     @IBOutlet weak var foodImageView: UIImageView!
@@ -25,10 +26,18 @@ class FoodInfoViewController:UIViewController,UIScrollViewDelegate,UITableViewDe
     @IBOutlet weak var foodNameLabel: UILabel!
     //var foodInfo:food_info!
     var food_info:Recipe!
+    var webView = WKWebView()
     //let foodInfoSERVER = "storings"
     var foodid = 1
     var foodvalues:[String] = []
+    var targetUrl = "食材"
     var keyname:[String] = []
+    override func loadView() {
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.uiDelegate = self
+        view = webView
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -37,9 +46,9 @@ class FoodInfoViewController:UIViewController,UIScrollViewDelegate,UITableViewDe
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        eiyouTableView.delegate = self
-        eiyouTableView.dataSource = self
-        if food_info.prices.count != 0{
+       /* eiyouTableView.delegate = self
+        eiyouTableView.dataSource = self*/
+       /* if food_info.prices.count != 0{
             setchart()
         }
         foodImageView.sd_setImage(with: URL(string:"\(food_info.foodInfo.picture)"), placeholderImage:UIImage(named:"loading.png"))
@@ -50,16 +59,23 @@ class FoodInfoViewController:UIViewController,UIScrollViewDelegate,UITableViewDe
         }else{
             foodImageView.sd_setImage(with: URL(string:"https://img.hachimenroppi.com/image.php?f=CZB5ApsB&adir=topic&id=100"), placeholderImage:UIImage(named:"loading.png"))
             //foodImageView.image = UIImage(named:"notfound.png")
-        }
+        }*/
+        setchart()
     }
     func setchart(){
        //if foodInfo == nil{return}
     //foodInfo.name
         var entries:[BarChartDataEntry] = []
-        if food_info.prices == nil{
+        /*if food_info.prices == nil{
+            return
+        }*/
+        if targetUrl == nil{
             return
         }
-        for key in food_info.prices.keys{
+        let urlRequest = URLRequest(url:URL(string:targetUrl)!)
+               webView.load(urlRequest)
+               self.view.addSubview(webView)
+       /* for key in food_info.prices.keys{
             let value = food_info.prices[key]?.highPrice
        //     let mediumvalue = food_info.prices[key]?.mediumPrice
             foodvalues += value!
@@ -71,7 +87,7 @@ class FoodInfoViewController:UIViewController,UIScrollViewDelegate,UITableViewDe
         let set = LineChartDataSet(entries:entries,label:"価格")
         graphView.data = generateData()
         
-        self.view.addSubview(graphView)
+        self.view.addSubview(graphView)*/
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if food_info == nil {
@@ -179,4 +195,20 @@ class FoodInfoViewController:UIViewController,UIScrollViewDelegate,UITableViewDe
         return LineChartData(dataSets: linedata)
     }
 }
+   /* extension ViewController: WKNavigationDelegate {
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        }
+    }
+    extension ViewController: WKUIDelegate {
+        
+        func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
+                     for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+            
+            if navigationAction.targetFrame == nil {
+                webView.load(navigationAction.request)
+            }
+            
+            return nil
+        }
+}*/
 

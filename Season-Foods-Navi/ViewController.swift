@@ -19,6 +19,8 @@ var locationmaneger:CLLocationManager!
 var rakutenResults:[rakutenResult]=[]
 var tapped_path:Int!
 var id = 10
+var count = 0
+var count_result = 0
 var timer:Timer?
 class ViewController: UIViewController,UICollectionViewDelegateFlowLayout,CLLocationManagerDelegate{
     @IBOutlet var menucollection: UICollectionView!
@@ -51,8 +53,19 @@ class ViewController: UIViewController,UICollectionViewDelegateFlowLayout,CLLoca
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toRecipe" {
             let nextView = segue.destination as! RecipeViewController
-             nextView.recipename = rakutenResults[0].result[tapped_path].recipeTitle
-              nextView.recipeInfo = rakutenResults[0].result[tapped_path]
+            var ind = 0
+            var tmp = Double(tapped_path!)
+           // var tapped = tapped_path!
+            for i in 0..<100{
+                if tmp/4.0 >= 1{
+                    ind += 1
+                    tmp /= 4.0
+                }else{
+                    break
+                }
+            }
+              nextView.recipename = rakutenResults[ind].result[tapped_path%4].recipeTitle
+              nextView.recipeInfo = rakutenResults[ind].result[tapped_path%4]
         }
     }
 }
@@ -63,7 +76,8 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource {
         if rakutenResults.count == 0 {
             return 6
         }
-        return rakutenResults[0].result.count//results[0].result.count//
+        return rakutenResults[0].result.count*4
+        //results[0].result.count//
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 1
@@ -89,18 +103,25 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource {
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCustomCell", for: indexPath)as! MyCustomCell
         //     print("second")
-        print(rakutenResults[0].result[indexPath.row].recipeTitle)
+       //print(indexPath.row)
+        if indexPath.row != 0 && indexPath.row%4 == 0{
+            count += 1
+            count_result = 0
+            print(count)
+        }
+        print(count_result)
+      //  print(rakutenResults[count].result[count_result].recipeTitle)
         cell.backgroundColor = .white
         cell.imageview = UIImageView(frame:cell.frame)
-        //  print(indexPath.row)
-        var imagepath = rakutenResults[0].result[indexPath.row].foodImageUrl//results[0].result[indexPath.row].picture//
+        var imagepath = rakutenResults[count].result[count_result].foodImageUrl//results[0].result[indexPath.row].picture//
         var imageurl:String!
         imageurl = "\(imagepath)"
         cell.imageview.sd_setImage(with: URL(string:imageurl), placeholderImage:UIImage(named:"loading.png"))
-        cell.needminute.text = rakutenResults[0].result[indexPath.row].recipeIndication//results[0].result[indexPath.row].time//
+        cell.needminute.text = rakutenResults[count].result[count_result].recipeIndication//results[0].result[indexPath.row].time//
         cell.needminute.font = UIFont.systemFont(ofSize: 20)
         collectionView.addSubview(cell.imageview)
         self.view.bringSubviewToFront(cell.needminute)
+        count_result += 1
         return cell
     }
 }
@@ -128,9 +149,9 @@ extension ViewController{
     }
 
         id += 1
-        if id > 20{
+        if id > 15{
             timer?.invalidate()
-            print(rakutenResults)
+           // print(rakutenResults[1])
             self.menucollection.reloadData()
         }
      }

@@ -16,7 +16,7 @@ import WebKit
 import Hydra
 var check:[Bool] = []
 var tapped_row = 0
-class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate{
+class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate, WKNavigationDelegate{
     let webView = WKWebView()
     var recipename = ""
     var recipeScrollView:UIScrollView!
@@ -122,10 +122,12 @@ class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == recipeInfo.recipeMaterial.count+2 {
-            let targetUrl = recipeInfo.recipeUrl
+            /*let targetUrl = recipeInfo.recipeUrl
             let urlRequest = URLRequest(url:URL(string:targetUrl)!)
             webView.load(urlRequest)
-            self.view.addSubview(webView)
+            self.view.addSubview(webView)*/
+            tapped_row = indexPath.row-1
+            performSegue(withIdentifier: "toFoodInfo", sender: nil)
         }
         /*if indexPath.row > recipeInfo.recipeMaterial.count||indexPath.row == 0{
             return
@@ -138,7 +140,8 @@ class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataS
         if segue.identifier == "toFoodInfo" {
             var next = 1
             let nextView = segue.destination as! FoodInfoViewController
-            nextView.foodName = recipeInfo.recipeMaterial[tapped_row]
+           // nextView.foodName = recipeInfo.recipeMaterial[tapped_row]
+            nextView.targetUrl = recipeInfo.recipeUrl
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -163,7 +166,7 @@ class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataS
     }
 
 }
-extension ViewController: WKNavigationDelegate {
+/*extension ViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
     }
 }
@@ -179,7 +182,7 @@ extension ViewController: WKUIDelegate {
         return nil
     }
     
-}
+}*/
 class RecipeCustomCell:UITableViewCell{
     @IBOutlet weak var checkbox: UIButton!
     @IBOutlet weak var materialName: UILabel!
