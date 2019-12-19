@@ -31,7 +31,7 @@ class titleViewController:UIViewController{
     //    logoimage = UIImageView()
         titleImageView.image = UIImage(named:"yasai.png")
        goNext.titleLabel?.text = "TapToStart"
-        geo.image = UIImage(named:"geoapi.png")
+//        geo.image = UIImage(named:"geoapi.png")
         goNext.addTarget(self, action: #selector(self.tapped(_:)), for: .touchUpInside)
        // goNext.backgroundColor = .none
        // goNext.layer.position.x = (width / 4) * 3

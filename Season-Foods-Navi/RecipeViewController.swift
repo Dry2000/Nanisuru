@@ -121,20 +121,22 @@ class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // if indexPath.row == recipeInfo.recipeMaterial.count+2 {
-            /*let targetUrl = recipeInfo.recipeUrl
-            let urlRequest = URLRequest(url:URL(string:targetUrl)!)
+        /* if indexPath.row != recipeInfo.recipeMaterial.count+1 {
+             tapped_row = indexPath.row-1
+            let targetUrl = "https://onedannote.com/?q=10"
+            let url = URL(string:targetUrl)
+            let urlRequest = URLRequest(url:url!)
             webView.load(urlRequest)
-            self.view.addSubview(webView)*/
-            tapped_row = indexPath.row-1
-            performSegue(withIdentifier: "toFoodInfo", sender: nil)
-      //  }
-        /*if indexPath.row > recipeInfo.recipeMaterial.count||indexPath.row == 0{
+            self.view.addSubview(webView)
+            
+           // performSegue(withIdentifier: "toFoodInfo", sender: nil)
+        }
+        if indexPath.row > recipeInfo.recipeMaterial.count||indexPath.row == 0{
             return
         }
-
+*/
         tapped_row = indexPath.row-1
-        performSegue(withIdentifier: "toFoodInfo", sender: nil)*/
+        performSegue(withIdentifier: "toFoodInfo", sender: nil)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toFoodInfo" {
@@ -144,7 +146,8 @@ class RecipeViewController:UIViewController,UITableViewDelegate,UITableViewDataS
             if tapped_row == recipeInfo.recipeMaterial.count{
             nextView.targetUrl = recipeInfo.recipeUrl
             }else{
-                nextView.targetUrl = "https://recipe.rakuten.co.jp/search/\(recipeInfo.recipeMaterial[tapped_row])/?s=4&v=0"
+                let tmp = "https://onedannote.com/?q=\(recipeInfo.recipeMaterial[tapped_row])"
+                nextView.targetUrl = tmp.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! //"https://recipe.rakuten.co.jp/search/\(recipeInfo.recipeMaterial[tapped_row])/?s=4&v=0"
             }
         }
     }
