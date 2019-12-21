@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="initView" id="BYZ-38-t0r" customClass="ViewController" customModule="Season_Foods_Navi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="initView" id="BYZ-38-t0r" customClass="ViewController" customModule="Nanisuru" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -27,7 +27,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyCustomCell" id="WHZ-gP-ojt" customClass="MyCustomCell" customModule="Season_Foods_Navi" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyCustomCell" id="WHZ-gP-ojt" customClass="MyCustomCell" customModule="Nanisuru" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="XTv-Fw-x0T">
@@ -93,7 +93,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="zGo-eY-SPu"/>
                     <connections>
-                        <outlet property="menucollection" destination="VhY-eQ-yx0" id="sdf-R5-JAn"/>
+                        <outlet property="menucollection" destination="VhY-eQ-yx0" id="o5x-g8-Tl6"/>
                         <segue destination="xPY-PF-1VV" kind="push" identifier="toRecipe" id="EpJ-h7-tjp"/>
                     </connections>
                 </viewController>
@@ -104,7 +104,7 @@
         <!--Recipe View Controller-->
         <scene sceneID="E9p-wy-e7b">
             <objects>
-                <viewController storyboardIdentifier="recipeview" id="xPY-PF-1VV" customClass="RecipeViewController" customModule="Season_Foods_Navi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="recipeview" id="xPY-PF-1VV" customClass="RecipeViewController" customModule="Nanisuru" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iQX-Hn-3yw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -132,7 +132,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCustomCell" id="cgH-mz-qIb" customClass="RecipeCustomCell" customModule="Season_Foods_Navi">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cgH-mz-qIb" id="dPV-qS-rNx" customClass="RecipeCustomCell" customModule="Season_Foods_Navi" customModuleProvider="target">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cgH-mz-qIb" id="dPV-qS-rNx" customClass="RecipeCustomCell" customModule="Nanisuru" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -197,7 +197,7 @@
         <!--Food Info View Controller-->
         <scene sceneID="Pky-eA-d1c">
             <objects>
-                <viewController id="iwg-3S-5O1" customClass="FoodInfoViewController" customModule="Season_Foods_Navi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iwg-3S-5O1" customClass="FoodInfoViewController" customModule="Nanisuru" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Kj-vC-OtG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -213,7 +213,7 @@
         <!--webViewController-->
         <scene sceneID="qBP-dJ-Ds5">
             <objects>
-                <viewController title="webViewController" id="2PI-XL-Xxw" customClass="webViewController" customModule="Season_Foods_Navi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="webViewController" id="2PI-XL-Xxw" customClass="webViewController" customModule="Nanisuru" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zar-Ib-0tA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -239,7 +239,7 @@
         <!--Title View Controller-->
         <scene sceneID="Gf4-0h-CeP">
             <objects>
-                <viewController id="aET-4A-ETp" customClass="titleViewController" customModule="Season_Foods_Navi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="aET-4A-ETp" customClass="titleViewController" customModule="Nanisuru" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SG4-fI-UTe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
